@@ -1,0 +1,29 @@
+<head>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+<h1>Сторінка для створення нового набору слів</h1>
+
+<form action="/submit" method="POST">
+  <%= csrf_meta_tags %>
+
+  <label for="name">Назва:</label>
+  <input type="text" id="name" name="name">
+
+  <br>
+  <label for="description">Опис:</label>
+  <textarea id="description" name="description"></textarea>
+
+  <br>
+  <label for="category">Категорія:</label>
+  <select name="category">
+    <% @categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.categoryName %></option>
+    <% end %>
+  </select>
+
+  <br>
+  <input type="submit" value="Відправити">
+</form>
+</body>

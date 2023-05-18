@@ -1,0 +1,41 @@
+<h1>Сторінка для добавлення слів до набору</h1>
+
+<ul>
+  <% @words.each do |word| %>
+    <li>
+      <%= word.word %>
+      <% translation = Translation.find_by(word_id: word.id) %>
+      <% if translation %>
+        <%= translation.translation %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<form action="/addWords" method="post">
+<input type="hidden" name="id" value="<%= params[:id] %>">
+  <label for="word">Слово:</label>
+  <input type="text" name="word" id="word">
+
+    <label for="word_set1">Мова:</label>
+  <select name="word_set1" id="word_set1">
+    <% @languages.each do |language| %>
+      <option value="<%= language.id %>"><%= language.language %></option>
+    <% end %>
+  </select>
+
+</br>
+  <label for="translation">Переклад:</label>
+  <input type="text" name="translation" id="translation">
+
+    <label for="word_set2">Мова:</label>
+  <select name="word_set2" id="word_set2">
+    <% @languages.each do |language| %>
+      <option value="<%= language.id %>"><%= language.language %></option>
+    <% end %>
+  </select>
+
+</br>
+
+  <input type="submit" value="Додати">
+</form>

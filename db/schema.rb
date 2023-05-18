@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_221625) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_210212) do
   create_table "categories", force: :cascade do |t|
     t.string "categoryName"
     t.datetime "created_at", null: false
@@ -36,6 +36,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_221625) do
     t.datetime "updated_at", null: false
     t.index ["User_id"], name: "index_linked_sets_on_User_id"
     t.index ["WordsSet_id"], name: "index_linked_sets_on_WordsSet_id"
+  end
+
+  create_table "linked_word_sets", force: :cascade do |t|
+    t.integer "word_id"
+    t.integer "WordsSet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["WordsSet_id"], name: "index_linked_word_sets_on_WordsSet_id"
+    t.index ["word_id"], name: "index_linked_word_sets_on_word_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -89,12 +98,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_221625) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "firstName", limit: 20, null: false
-    t.string "lastName", limit: 20, null: false
+    t.string "first_name"
+    t.string "last_name"
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "birthday", null: false
   end
 
   create_table "words", force: :cascade do |t|
@@ -117,6 +125,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_221625) do
 
   add_foreign_key "linked_sets", "Users"
   add_foreign_key "linked_sets", "WordsSets"
+  add_foreign_key "linked_word_sets", "WordsSets"
+  add_foreign_key "linked_word_sets", "words"
   add_foreign_key "tests", "statistics", column: "statistics_id"
   add_foreign_key "translations", "languages"
   add_foreign_key "translations", "words"
@@ -124,7 +134,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_221625) do
   add_foreign_key "unlearned_words", "words"
   add_foreign_key "user_tests", "Tests"
   add_foreign_key "user_tests", "Users"
-  add_foreign_key "users", "roles"
   add_foreign_key "words", "languages"
-  add_foreign_key "words_sets", "Categories"
+  add_foreign_key "words_sets", "categories", column: "Category_id"
 end
