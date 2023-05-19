@@ -1,29 +1,39 @@
 <head>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
-<h1>Сторінка для створення нового набору слів</h1>
+<div class="container">
+  <h1 class="text-center mt-5">Сторінка для створення нового набору слів</h1>
 
-<form action="/submit" method="POST">
-  <%= csrf_meta_tags %>
+  <form action="/submit" method="POST" class="mt-4">
+    <%= csrf_meta_tags %>
 
-  <label for="name">Назва:</label>
-  <input type="text" id="name" name="name">
+    <div class="form-group">
+      <label for="name">Назва:</label>
+      <input type="text" id="name" name="name" class="form-control">
+    </div>
 
-  <br>
-  <label for="description">Опис:</label>
-  <textarea id="description" name="description"></textarea>
+    <div class="form-group">
+      <label for="description">Опис:</label>
+      <textarea id="description" name="description" class="form-control"></textarea>
+    </div>
 
-  <br>
-  <label for="category">Категорія:</label>
-  <select name="category">
-    <% @categories.each do |category| %>
-      <option value="<%= category.id %>"><%= category.categoryName %></option>
-    <% end %>
-  </select>
+    <div class="form-group">
+      <label for="category">Категорія:</label>
+      <select name="category" class="form-control">
+        <% @categories.each do |category| %>
+          <option value="<%= category.id %>"><%= category.categoryName %></option>
+        <% end %>
+      </select>
+    </div>
 
-  <br>
-  <input type="submit" value="Відправити">
-</form>
+    <a href="/" class="btn btn-secondary">Повернутися</a>
+    <input type="submit" value="Створити" class="btn btn-primary">
+    
+  </form>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

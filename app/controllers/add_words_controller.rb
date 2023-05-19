@@ -25,13 +25,8 @@ def submit
     if wordObj.save
       transObj = Translation.new(translation: translation, word_id: wordObj.id, created_at: time, updated_at: time, language_id: word_set2)
   
-      wordInd = params[:id]
-      puts "Тест"
-      puts wordInd
-  
       if transObj.save
         linkedToSet = LinkedWordSet.new(word_id: wordObj.id, WordsSet_id: params[:id], created_at:time, updated_at: time)
-        puts "Тест2"
         puts linkedToSet.word_id
         puts linkedToSet.WordsSet_id
         linkedToSet.save

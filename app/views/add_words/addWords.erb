@@ -1,41 +1,59 @@
-<h1>Сторінка для добавлення слів до набору</h1>
+<div class="container">
+  <h1 class="text-center mt-5">Сторінка для добавлення слів до набору</h1>
 
-<ul>
-  <% @words.each do |word| %>
-    <li>
-      <%= word.word %>
-      <% translation = Translation.find_by(word_id: word.id) %>
-      <% if translation %>
-        <%= translation.translation %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
-<form action="/addWords" method="post">
-<input type="hidden" name="id" value="<%= params[:id] %>">
-  <label for="word">Слово:</label>
-  <input type="text" name="word" id="word">
-
-    <label for="word_set1">Мова:</label>
-  <select name="word_set1" id="word_set1">
-    <% @languages.each do |language| %>
-      <option value="<%= language.id %>"><%= language.language %></option>
+  <ul class="list-group mt-4">
+    <% @words.each do |word| %>
+      <li class="list-group-item custom-item">
+        <%= word.word %> - 
+        <% translation = Translation.find_by(word_id: word.id) %>
+        <% if translation %>
+          <%= translation.translation %>
+        <% end %>
+      </li>
     <% end %>
-  </select>
+  </ul>
 
-</br>
-  <label for="translation">Переклад:</label>
-  <input type="text" name="translation" id="translation">
+  <form action="/addWords" method="post" class="mt-4">
+    <input type="hidden" name="id" value="<%= params[:id] %>">
+  
+    <div class="form-group">
+      <label for="word">Слово:</label>
+      <input type="text" name="word" id="word" class="form-control">
+    </div>
+  
+    <div class="form-group">
+      <label for="word_set1">Мова:</label>
+      <select name="word_set1" id="word_set1" class="form-control">
+        <% @languages.each do |language| %>
+          <option value="<%= language.id %>"><%= language.language %></option>
+        <% end %>
+      </select>
+    </div>
+  
+  </br>
 
-    <label for="word_set2">Мова:</label>
-  <select name="word_set2" id="word_set2">
-    <% @languages.each do |language| %>
-      <option value="<%= language.id %>"><%= language.language %></option>
-    <% end %>
-  </select>
+    <div class="form-group">
+      <label for="translation">Переклад:</label>
+      <input type="text" name="translation" id="translation" class="form-control">
+    </div>
+  
+    <div class="form-group">
+      <label for="word_set2">Мова:</label>
+      <select name="word_set2" id="word_set2" class="form-control">
+        <% @languages.each do |language| %>
+          <option value="<%= language.id %>"><%= language.language %></option>
+        <% end %>
+      </select>
+    </div>
+    </br>
+    
+    <a href="/" class="btn btn-secondary">Повернутися</a>
+    <input type="submit" value="Створити" class="btn btn-primary">
+  </form>
+</div>
 
-</br>
-
-  <input type="submit" value="Додати">
-</form>
+<style>
+  .custom-item {
+    background-color: #F8F9FA;
+  }
+</style>

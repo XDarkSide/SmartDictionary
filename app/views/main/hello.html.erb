@@ -1,1 +1,65 @@
-<h1>Головна сторінка</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <title>Smart Dictionary</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .navbar {
+      background-color: #343a40;
+    }
+    .navbar-brand {
+      color: #fff;
+    }
+    .navbar-nav .nav-link {
+      color: #fff;
+    }
+    .site-description {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Smart Dictionary</a>
+
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Увійти</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="site-description">
+    <p>Smart Dictionary - це зручне рішення для ведення електронного словника.</p>
+  </div>
+
+  <form action="/create" method="post" class="mt-4">
+    <%= csrf_meta_tags %>
+
+    <input type="submit" value="Створити набір" class="btn btn-primary">
+  </form>
+
+  <h2 class="mt-4">Ваші набори слів</h2>
+  <ul class="list-group mt-2">
+    <% @sets.each do |set| %>
+      <li class="list-group-item">
+        <b><%= set.setName %></b> - <%= set.description %>
+        <form action="/delete" method="post" class="d-inline">
+          <%= csrf_meta_tags %>
+          <input type="hidden" name="set_id" value="<%= set.id %>">
+          <button type="submit" class="btn btn-danger btn-sm float-right">&times;</button>
+        </form>
+        <a href="/addWords/<%= set.id %>" class="btn btn-primary btn-sm float-right mr-2">Додати слова</a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

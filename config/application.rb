@@ -14,6 +14,8 @@ module TestProject
     # Enable protection against CSRF attacks
     config.action_controller.default_protect_from_forgery = true
 
+    config.application_name = 'Smart Dictionary'
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
