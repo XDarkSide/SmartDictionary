@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_210212) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_22_151947) do
   create_table "categories", force: :cascade do |t|
     t.string "categoryName"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "dictionary_models", force: :cascade do |t|
+  create_table "category_items", force: :cascade do |t|
+    t.string "categoryName"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -103,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_210212) do
     t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "birthday"
   end
 
   create_table "words", force: :cascade do |t|
@@ -120,7 +122,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_210212) do
     t.integer "capacity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category_item_id", null: false
     t.index ["Category_id"], name: "index_words_sets_on_Category_id"
+    t.index ["category_item_id"], name: "index_words_sets_on_category_item_id"
   end
 
   add_foreign_key "linked_sets", "Users"
@@ -134,6 +138,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_210212) do
   add_foreign_key "unlearned_words", "words"
   add_foreign_key "user_tests", "Tests"
   add_foreign_key "user_tests", "Users"
+  add_foreign_key "users", "roles"
   add_foreign_key "words", "languages"
-  add_foreign_key "words_sets", "categories", column: "Category_id"
+  add_foreign_key "words_sets", "Categories"
+  add_foreign_key "words_sets", "category_items"
 end

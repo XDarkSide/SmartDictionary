@@ -1,0 +1,10 @@
+<div class="container">
+  <h1 class="mb-4">New category item</h1>
+
+  <%= render "form", category_item: @category_item %>
+
+  <div class="mt-4">
+    <%= link_to "Back to category items", category_items_path, class: "btn btn-secondary" %>
+    <%= link_to "Back to main", "/", class: "btn btn-primary" %>
+  </div>
+</div>

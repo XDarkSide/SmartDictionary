@@ -1,0 +1,12 @@
+<h1 class="text-center">Editing category item</h1>
+
+<div class="card">
+  <div class="card-body">
+    <%= render "form", category_item: @category_item %>
+  </div>
+</div>
+
+<div class="text-center mt-3">
+  <%= link_to "Show this category item", @category_item, class: "btn btn-primary mr-3" %>
+  <%= link_to "Back to category items", category_items_path, class: "btn btn-secondary" %>
+</div>

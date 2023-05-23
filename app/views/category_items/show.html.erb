@@ -1,0 +1,20 @@
+<% if notice %>
+  <div class="alert alert-success">
+    <%= notice %>
+  </div>
+<% end %>
+
+<div class="card">
+  <div class="card-body">
+    <%= render @category_item %>
+  </div>
+</div>
+
+<div class="text-center mt-4">
+  <%= link_to "Edit this category item", edit_category_item_path(@category_item), class: "btn btn-primary mr-3" %>
+  <%= link_to "Back to category items", category_items_path, class: "btn btn-secondary" %>
+</div>
+
+<div class="text-center mt-3">
+  <%= button_to "Destroy this category item", @category_item, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+</div>

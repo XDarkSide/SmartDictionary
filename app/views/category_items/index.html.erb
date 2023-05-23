@@ -1,0 +1,19 @@
+<h1 class="text-center">Category items</h1>
+
+<div id="category_items">
+  <% @category_items.each do |category_item| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <%= render category_item %>
+        <p>
+          <%= link_to "Show this category item", category_item, class: "btn btn-primary" %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="text-center">
+  <%= link_to "New category item", new_category_item_path, class: "btn btn-success" %>
+  <%= link_to "Back", "/", class: "btn btn-primary" %>
+</div>
