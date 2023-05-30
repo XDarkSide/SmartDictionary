@@ -5,8 +5,17 @@
     <li class="nav-item">
       <a class="nav-link" href="/category_items/">Управління категоріями</a>
     </li>
+  </ul>
+
+  <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#">Увійти</a>
+      <% if user_signed_in? %>
+        <%= form_with(url: destroy_user_session_path, method: :delete, html: { class: "d-inline" }) do |f| %>
+          <%= f.button "Вийти (#{current_user.first_name} #{current_user.last_name})", class: "nav-link btn-link text-center", style: "background: none; border: none; cursor: pointer; padding: 0; margin: auto;" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Увійти", new_user_session_path, class: "nav-link" %>
+      <% end %>
     </li>
   </ul>
 </nav>

@@ -29,26 +29,29 @@
     <p>Smart Dictionary - це зручне рішення для ведення електронного словника.</p>
   </div>
 
-  <form action="/create" method="post" class="mt-4">
-    <%= csrf_meta_tags %>
+  <% if current_user %>
+    <form action="/create" method="post" class="mt-4">
+      <%= csrf_meta_tags %>
+      <input type="submit" value="Створити набір" class="btn btn-primary">
+    </form>
 
-    <input type="submit" value="Створити набір" class="btn btn-primary">
-  </form>
-
-  <h2 class="mt-4">Ваші набори слів</h2>
-  <ul class="list-group mt-2">
-    <% @sets.each do |set| %>
-      <li class="list-group-item">
-        <b><%= set.setName %></b> - <%= set.description %>
-        <form action="/delete" method="post" class="d-inline">
-          <%= csrf_meta_tags %>
-          <input type="hidden" name="set_id" value="<%= set.id %>">
-          <button type="submit" class="btn btn-danger btn-sm float-right">&times;</button>
-        </form>
-        <a href="/addWords/<%= set.id %>" class="btn btn-primary btn-sm float-right mr-2">Додати слова</a>
-      </li>
-    <% end %>
-  </ul>
+    <h2 class="mt-4">Ваші набори слів</h2>
+    <ul class="list-group mt-2">
+      <% @sets.each do |set| %>
+        <li class="list-group-item">
+          <b><%= set.setName %></b> - <%= set.description %>
+          <form action="/delete" method="post" class="d-inline">
+            <%= csrf_meta_tags %>
+            <input type="hidden" name="set_id" value="<%= set.id %>">
+            <button type="submit" class="btn btn-danger btn-sm float-right">&times;</button>
+          </form>
+          <a href="/addWords/<%= set.id %>" class="btn btn-primary btn-sm float-right mr-2">Додати слова</a>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Авторизуйтесь, щоб користуватися функціоналом.</p>
+  <% end %>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

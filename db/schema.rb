@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_151947) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_213103) do
   create_table "categories", force: :cascade do |t|
     t.string "categoryName"
     t.datetime "created_at", null: false
@@ -31,21 +31,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_151947) do
   end
 
   create_table "linked_sets", force: :cascade do |t|
-    t.integer "WordsSet_id"
-    t.integer "User_id"
+    t.integer "words_set_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["User_id"], name: "index_linked_sets_on_User_id"
-    t.index ["WordsSet_id"], name: "index_linked_sets_on_WordsSet_id"
+    t.index ["user_id"], name: "index_linked_sets_on_user_id"
+    t.index ["words_set_id"], name: "index_linked_sets_on_words_set_id"
   end
 
   create_table "linked_word_sets", force: :cascade do |t|
     t.integer "word_id"
-    t.integer "WordsSet_id"
+    t.integer "words_sets_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["WordsSet_id"], name: "index_linked_word_sets_on_WordsSet_id"
     t.index ["word_id"], name: "index_linked_word_sets_on_word_id"
+    t.index ["words_sets_id"], name: "index_linked_word_sets_on_words_sets_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -105,6 +105,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_151947) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "birthday"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "words", force: :cascade do |t|
@@ -127,10 +134,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_151947) do
     t.index ["category_item_id"], name: "index_words_sets_on_category_item_id"
   end
 
-  add_foreign_key "linked_sets", "Users"
-  add_foreign_key "linked_sets", "WordsSets"
-  add_foreign_key "linked_word_sets", "WordsSets"
+  add_foreign_key "linked_sets", "users"
+  add_foreign_key "linked_sets", "words_sets"
   add_foreign_key "linked_word_sets", "words"
+  add_foreign_key "linked_word_sets", "words_sets", column: "words_sets_id"
   add_foreign_key "tests", "statistics", column: "statistics_id"
   add_foreign_key "translations", "languages"
   add_foreign_key "translations", "words"

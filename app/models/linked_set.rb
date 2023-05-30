@@ -1,4 +1,4 @@
 class LinkedSet < ApplicationRecord
-    belongs_to :WordsSet
-    belongs_to :User
-end
+    belongs_to :words_set, class_name: 'WordsSet'
+    belongs_to :user, class_name: 'User'
+  end

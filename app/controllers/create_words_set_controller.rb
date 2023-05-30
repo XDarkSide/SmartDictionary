@@ -1,5 +1,6 @@
 class CreateWordsSetController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :submit
+  before_action :authenticate_user!
 
   def createSet  
     @categories = CategoryItem.all
@@ -25,9 +26,17 @@ class CreateWordsSetController < ApplicationController
       puts "Capacity: #{words_set.capacity}"
 
     if words_set.save
-      
 
-      redirect_to addWords_path(id: words_set.id)
+      linked_set = LinkedSet.create(words_set_id: words_set.id, user_id: current_user.id, created_at: time, updated_at: time)
+
+    if linked_set.save
+    redirect_to addWords_path(id: words_set.id)
+    else
+    flash.now[:alert] = 'Помилка при збереженні набору слів.'
+    render :create
+    end
+
+     
     else
       flash.now[:alert] = 'Помилка при збереженні набору слів.'
       render :create

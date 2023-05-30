@@ -3,8 +3,15 @@ class MainController < ApplicationController
     skip_before_action :verify_authenticity_token, only: :delete
 
     def hello
-        @sets = WordsSet.all
-        puts @sets
+        begin
+            linkedSets = LinkedSet.where(User_id: current_user.id).pluck(:id)
+            @sets = WordsSet.where(id: linkedSets)
+            puts @sets
+          rescue NoMethodError
+            # Ігноруємо помилку NoMethodError, якщо current_user є nil
+            puts "Current user is nil"
+          end
+          
     end
 
     def submit
